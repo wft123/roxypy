@@ -77,3 +77,72 @@ def dfs_perm(lst, n):
                 else:
                     stack.append(temp)
     return ret
+
+def search_map(data, s, e):
+    n = len(data)
+    m = 99999
+    i, j, k=0
+    v, dist, via = []
+    min
+
+    print("시작 : {}, 도착 : {}".format(s, e))
+
+    for j in range(0, n):
+        via[0] = -1
+        v[j] = 0
+        dist[j] = m
+
+    dist[s-1] = 0
+
+    for i in range(0, n):
+        min = m
+        for j in range(0, n):
+            if v[j] == 0 and dist[j] < min:
+                k = j
+                min = dist[j]
+        v[k] = 1
+        for a in v:
+            print(a, end=" ")
+        print()
+        if min == m:
+            break
+        for j in range(0, n):
+            if dist[j] > dist[k] + data[k][j]:
+                dist[j] = dist[k] + data[k][j]
+                via[j] = k
+        path = []
+        path_cnt = 0
+        k = e-1
+
+        while True:
+            path[path_cnt] = k
+            if k == s-1:
+                break
+            k = via[k]
+
+        for i in range(path_cnt-1, 1, -1):
+            print("{} -> ".format(path[i]), end=" ")
+        print("{} -> ".format(path[i]))
+
+
+
+def search_map(data):
+    n = 6
+    length = 0
+    label = list(range(0, n))
+
+    data.sort(key=lambda d: d[2])
+
+    nodes, idx, cost, tmp = 0, 0, 0, 0
+
+    while nodes < n-1:
+        if label[data[idx][0]-1] != label[data[idx][1]-1]:
+            tmp = label[data[idx][1]-1]
+            for i in range(0, n):
+                if tmp == label[i]:
+                    label[i] = label[data[idx][0]-1]
+            cost += data[idx][2]
+            nodes += 1
+        idx += 1
+
+    return cost

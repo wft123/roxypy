@@ -1,20 +1,27 @@
-def check_word(str):
-    if str[-1] == 1:
-        return False
+def check_len(matrix):
+    n = len(matrix)
+    m = len(matrix[0])
+    result = 0
 
-    pre_char = 0
-    for i in range(len(str)):
-        tmp = str[i]
-        if tmp != 1 and tmp != 2:
-            return False
+    for i in range(0, n):
+        for j in range(0, m):
+            if matrix[i][j] == 1:
+                if i-1 >= 0 and matrix[i-1][j] == 0:
+                    result += 1
+                if i+1 < n and matrix[i+1][j] == 0:
+                    result += 1
+                if j-1 >= 0 and matrix[i][j-1] == 0:
+                    result += 1
+                if j+1 < m and matrix[i][j+1] == 0:
+                    result += 1
 
-        if pre_char == 1:
-            if tmp != 2:
-                return False
-
-        pre_char = tmp
-    return True
+    print(result)
 
 
-user_input = input()
-print(check_word(user_input))
+data = [
+    [0, 0, 0, 0, 0, 0],
+    [0, 1, 1, 0, 0, 0],
+    [0, 0, 1, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0]
+]
+check_len(data)
